@@ -42,12 +42,12 @@ exports.template = function(grunt, init, done) {
     };
     return o;
   }
- 
+
   // Helper to process an array of "yes/no" questions.
   function yns(o) {
     return o.map(yn);
   }
-  
+
   // Helper to add a dependency if it doesn't already exist
   function addDep(props, packageName, version) {
     if (props.dependencies[packageName]) {
@@ -76,12 +76,6 @@ exports.template = function(grunt, init, done) {
     init.prompt('author_email'),
     init.prompt('author_url'),
     init.prompt('node_version', '>= 0.10.0'),
-    {
-      name: 'wordnik_apikey',
-      message: 'Enter your Wordnik API key',
-      default: '',
-      warning: 'if you enter a key, we\'ll add it as a global included from an external file, permissions.js'
-    },
     {
       name: 'twitter_consumer_key',
       message: 'Enter your Twitter consumer key',
@@ -112,9 +106,7 @@ exports.template = function(grunt, init, done) {
     props.dependencies = {
       'underscore': '~1.5.1',
       'underscore.deferred': '~0.4.0',
-      'inflection': '~1.2.6',
-      'twit': '~1.1.9',
-      'wordfilter': '0.1.3'
+      'twit': '~1.1.9'
     };
     if (props.cheerio) {
       addDep(props, 'request', '~2.44.0');
@@ -127,7 +119,7 @@ exports.template = function(grunt, init, done) {
                           '      var $ = cheerio.load(body);\n' +
                           '      // parse stuff and resolve\n' +
                           '      dfd.resolve(result);\n' +
-                          '    }\n' + 
+                          '    }\n' +
                           '    else {\n' +
                           '      dfd.reject();\n' +
                           '    }\n' +
@@ -136,9 +128,6 @@ exports.template = function(grunt, init, done) {
     }
     if (props.request && !props.cheerio) {
       addDep(props, 'request', '~2.44.0');
-    }
-    if (props.wordnik_apikey !== '') {
-      props.wordnikKey = 'var wordnikKey = require(\'./permissions.js\').key;\n';
     }
     props.devDependencies = {
       'grunt-contrib-jshint': '~0.6.0',

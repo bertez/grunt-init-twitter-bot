@@ -1,10 +1,8 @@
 {%= requireCode %}var _ = require('underscore');
 _.mixin( require('underscore.deferred') );
-var inflection = require('inflection');
+
 var Twit = require('twit');
 var T = new Twit(require('./config.js'));
-var wordfilter = require('wordfilter');
-{%= wordnikKey %}
 
 Array.prototype.pick = function() {
   return this[Math.floor(Math.random()*this.length)];
